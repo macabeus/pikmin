@@ -1,3 +1,33 @@
+## About this fork (`asmlift-benchmark` branch)
+
+This branch exists to make the [asmlift](https://github.com/macabeus/asmlift) decompiler
+benchmark reproducible. It is the upstream
+[projectPiki/pikmin](https://github.com/projectPiki/pikmin) tree at commit
+[`35e28e7c`](https://github.com/projectPiki/pikmin/commit/35e28e7c6f1f0788a6644b4b1f1fc18da6e5a7ba)
+("Update README.MD", 2026-09-07), the exact commit the benchmark's functions are vendored
+from, plus one integration commit touching exactly two files:
+
+- `decomp.yaml`: new. It adds a `tools.asmlift` block pointing asmlift at the project's symbol
+  source (`tools.asmlift.elf`): `build/GPIE01_01/main.elf`, the ELF the ordinary matching
+  build already links. No derived ELF and no extra build target is needed. That ELF carries a
+  sized `.symtab` for every function and object and no DWARF, and asmlift reads it as is.
+- `README.MD`: this section.
+- Nothing else differs from upstream: no `src/` byte, no rename, no build fix.
+
+The build needs exactly what the upstream [Dependencies](#dependencies) section lists
+(Python, ninja, and on macOS wine-crossover), plus a `GPIE01_01` (USA Rev 1) disc image in
+`orig/GPIE01_01/`. The project's pinned tools download into `build/` on first run.
+
+To reproduce the benchmark rows: build the project (the DOL must match), then follow the
+per-function scripts published in the benchmark report. The build writes the symbol source
+itself; no further command derives it:
+
+    python3 configure.py
+    ninja            # ends with `build/GPIE01_01/main.dol: OK`
+    ls build/GPIE01_01/main.elf
+
+---
+
 Pikmin  
 [![Build Status]][actions] [![Code Progress]][progress] [![Data Progress]][progress] [![Linked Progress]][progress] [![Discord Badge]][discord]
 =============

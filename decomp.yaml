@@ -1,0 +1,21 @@
+name: Pikmin
+repo: https://github.com/projectPiki/pikmin
+platform: gc
+versions:
+- name: GPIE01_01
+  fullname: USA (Rev 1)
+  sha1: 02204260b7efe8742d34572e58ba3dfecd92e4e9
+  paths:
+    target: orig/GPIE01_01/sys/main.dol
+    build_dir: build/GPIE01_01
+    compiled_target: build/GPIE01_01/main.dol
+    elf: build/GPIE01_01/main.elf
+
+tools:
+  asmlift:
+    # asmlift's symbol source: the ELF the ordinary matching build already links
+    # (`python3 configure.py && ninja`). It carries a sized .symtab (names, addresses and
+    # st_size for every function and object) and no DWARF, since the matching build passes
+    # neither `-sym on` nor linker `-g`. This project is a single DOL with no REL modules,
+    # so this one ELF covers all of its code.
+    elf: build/GPIE01_01/main.elf
