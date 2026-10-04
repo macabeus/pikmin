@@ -8,6 +8,7 @@ versions:
   paths:
     target: orig/GPIE01_01/sys/main.dol
     build_dir: build/GPIE01_01
+    map: build/GPIE01_01/main.elf.MAP
     compiled_target: build/GPIE01_01/main.dol
     elf: build/GPIE01_01/main.elf
 
